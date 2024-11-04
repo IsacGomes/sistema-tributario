@@ -1,0 +1,123 @@
+<!DOCTYPE html> <!--PQ EU NÃO FIZ ISSO EM PHP, MERDA-->
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Tributário</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Tributos Online</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+    <div class="container mt-5">
+        <h1 class="animate__animated animate__fadeIn">Bem-vindo ao Sistema Tributário Online</h1>
+        <p class="animate__animated animate__fadeInUp">Gerencie seus tributos de maneira fácil e eficiente.</p>
+    </div>
+    <div class="container mt-3">
+        <form id="data-form">
+            <div class="form-group">
+                <label for="cnpj">CNPJ:</label>
+                <input type="text" class="form-control" id="cnpj" name="cnpj" required>
+            </div>
+            <div class="form-group">
+                <label for="cnae">CNAE:</label>
+                <input type="text" class="form-control" id="cnae" name="cnae" required>
+            </div>
+            <div class="form-group">
+                <label for="valor_nota">VALOR NOTA:</label>
+                <input type="Float" step="0.01" class="form-control" id="valor_nota" name="valor_nota" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button> <!--PUTA GAMBIARRA SEM PRECEDENTES, MMENÓ-->
+        </form>
+    </div>
+    <div class="container mt-3">
+        <h2>Resultado</h2>
+        <ul id="resultado-list">
+            <li>Natureza do Serviço: <span id="natureza_servico"></span></li>
+            <li>Serviço: <span id="servico"></span></li>
+            <li>Alíquota: <span id="aliquota"></span></li>
+            <li>Valor a Reter: <span id="valor_a_reter"></span></li>
+            <li>Item da LC 116: <span id="item_lc116"></span></li>
+        </ul>
+    </div>
+    <table id="data-table" class="table table-striped mt-5">
+        <thead>
+            <tr>
+                <th>CNAE</th>
+                <th>Serviços</th>
+                <th>Alíquota</th>
+                <th>Natureza do Serviço</th>
+                <th>Item da LC 116</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        
+        function formatCNPJ(cnpj) {
+            return cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, "$1.$2.$3/$4-$5"); // MAS QUE PORRA
+        }
+
+        fetch('/data')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('data-table').querySelector('tbody');
+                tableBody.innerHTML = '';  
+                data.forEach(row => {
+                    const tableRow = document.createElement('tr');
+                    Object.values(row).forEach(cell => {
+                        const tableCell = document.createElement('td');
+                        tableCell.textContent = cell;
+                        tableRow.appendChild(tableCell);
+                    });
+                    tableBody.appendChild(tableRow);
+                });
+            })
+            .catch(error => console.error('Erro ao carregar os dados:', error));
+
+        document.getElementById('data-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            let cnpj = document.getElementById('cnpj').value;
+            const cnae = document.getElementById('cnae').value;
+            const valorNota = parseFloat(document.getElementById('valor_nota').value);
+            cnpj = formatCNPJ(cnpj);
+            try {
+                const response = await fetch('/process', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ cnpj, cnae, valor_nota: valorNota }) //PRECISA RESOLVER
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log(result);  // NÃO MECHA PELO AMOR DE DEUS
+                    document.getElementById('natureza_servico').textContent = result.natureza_servico;
+                    document.getElementById('servico').textContent = result.servico;
+                    document.getElementById('aliquota').textContent = result.aliquota;
+                    document.getElementById('valor_a_reter').textContent = result.valor_a_reter;
+                    document.getElementById('item_lc116').textContent = result.item_lc116;
+                } else {
+                    console.error('Erro ao processar os dados.');
+                }
+            } catch (error) {
+                console.error('Erro ao carregar os dados:', error);
+            }
+        });
+    </script>
+</body>
+</html>
+<!--PQ EU NÃO FIZ ISSO EM PHP, MERDA-->
+<!--PQ EU NÃO FIZ ISSO EM PHP, MERDA-->
