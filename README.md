@@ -9,27 +9,24 @@ O Sistema Tributário Online é uma aplicação web que permite aos usuários ge
 ```plaintext
 sistema-tributario/
 │
-├── backend/
-│   ├── server.js
-│   ├── package.json
-│   └── controllers/
-│       └── dataController.js
-│   └── models/
-│       └── Data.js
+├── files/
+│   └── dados.json
+│   └── Retencao_IR_ISS.xlsx
 │
 ├── frontend/
-│   ├── public/
-│   │   └── index.html
-│   ├── src/
-│   │   ├── App.js
-│   │   ├── index.js
-│   │   ├── components/
-│   │   │   ├── DataForm.js
-│   │   │   └── DataTable.js
-│   ├── package.json
+│   └── public/
+│   └── src/
 │
-├── data/
-│   └── Retencao_IR_ISS.xlsx
+├── public/
+│   └── index.html
+│
+├── scripts/
+│   └── processar_dados.py
+│
+│├── package-lock.json
+│├── package.json
+│├── server.js
+│├── README.md
 ```
 
 ## Funcionalidades
