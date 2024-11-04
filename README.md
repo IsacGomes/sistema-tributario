@@ -1,6 +1,6 @@
 Aqui está o conteúdo formatado do README.md para o seu projeto "Sistema Tributário Online". Você pode copiá-lo diretamente para o arquivo `README.md` no seu repositório GitHub.
 
-```markdown
+
 # Sistema Tributário Online
 
 ## Descrição
