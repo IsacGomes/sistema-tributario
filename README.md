@@ -1,4 +1,3 @@
-markdown
 # Sistema Tributário Online
 
 ## Descrição
@@ -75,42 +74,55 @@ python
 import pandas as pd
 
 # Lendo o arquivo Excel e pulando a primeira linha
+```python
 df = pd.read_excel('../files/Retencao_IR_ISS.xlsx', engine='openpyxl', skiprows=1)
-
+```
 # Selecionando as colunas pelo número - mudamos para letras
+```python
 colunas = df[['A', 'B', 'C', 'D', 'E']]
-
+```
 # Renomeando as colunas para nomes mais significativos
+```python
 colunas.columns = ['CNAE', 'Serviço', 'Alíquota', 'Natureza', 'Item LC 116']
-
+```
 # Salvando os dados em um arquivo JSON
+```python
 colunas.to_json('../files/dados.json', orient='records')
+```
 Execute o script:
-
+```sh
 sh
 python processar_dados.py
-Como Usar
+```
+# Como Usar
+
 Abra o arquivo index.html no seu navegador.
 
 Preencha o formulário com CNPJ, CNAE e valor da nota fiscal.
 
 Envie o formulário e veja os resultados dos cálculos de retenção de impostos exibidos na página.
 
-Contribuição
+# Contribuição
+
 Faça um fork do repositório.
 
-Crie uma branch para sua feature (git checkout -b feature/nova-feature).
+Crie uma branch para sua feature:
+```git
+(git checkout -b feature/nova-feature).
+```
 
-Commit suas mudanças (git commit -m 'Adicionei uma nova feature').
+Commit suas mudanças 
+```git
+(git commit -m 'Adicionei uma nova feature').
+```
 
-Faça um push para a branch (git push origin feature/nova-feature).
+Faça um push para a branch:
+```git
+(git push origin feature/nova-feature).
+```
 
 Abra um Pull Request.
 
-Licença
+# Licença:
+
 Este projeto está licenciado sob a Licença MIT. Veja o arquivo LICENSE para mais detalhes.
-
-
----
-
-Agora você pode copiar e colar o conteúdo acima no seu `README.md` no GitHub. Isso deve explicar todo o projeto de maneira clara e detalhada. 🚀
