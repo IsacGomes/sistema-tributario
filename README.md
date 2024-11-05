@@ -23,7 +23,7 @@ sistema-tributario/
 ├── node_modules/
 │
 ├── server.js
-├── package.json
+└── package.json
 ```
 Funcionalidades
 Front-end
