@@ -47,17 +47,25 @@ Script de Processamento: Script Python (processar_dados.py) para processar os da
 Instalação
 Back-end
 Navegue até o diretório do projeto:
-
+```sh
 sh
 cd sistema-tributario
+```
+
 Instale as dependências:
 
+```sh
 sh
 npm install
+```
+
 Inicie o servidor:
 
+```sh
 sh
 node server.js
+```
+
 Front-end
 Abra o arquivo index.html no seu navegador.
 
@@ -66,35 +74,41 @@ Para carregar os dados da planilha Excel para o arquivo JSON, siga os passos aba
 
 Navegue até o diretório scripts:
 
+```sh
 sh
 cd scripts
-Crie e execute o script processar_dados.py:
+```
 
+Crie e execute o script processar_dados.py:
+```py
 python
 import pandas as pd
+```
 
-# Lendo o arquivo Excel e pulando a primeira linha
+## Lendo o arquivo Excel e pulando a primeira linha
 ```python
 df = pd.read_excel('../files/Retencao_IR_ISS.xlsx', engine='openpyxl', skiprows=1)
 ```
-# Selecionando as colunas pelo número - mudamos para letras
+## Selecionando as colunas pelo número - mudamos para letras
 ```python
 colunas = df[['A', 'B', 'C', 'D', 'E']]
 ```
-# Renomeando as colunas para nomes mais significativos
+## Renomeando as colunas para nomes mais significativos
 ```python
 colunas.columns = ['CNAE', 'Serviço', 'Alíquota', 'Natureza', 'Item LC 116']
 ```
-# Salvando os dados em um arquivo JSON
+## Salvando os dados em um arquivo JSON
 ```python
 colunas.to_json('../files/dados.json', orient='records')
 ```
 Execute o script:
+
 ```sh
 sh
 python processar_dados.py
 ```
-# Como Usar
+
+## Como Usar
 
 Abra o arquivo index.html no seu navegador.
 
@@ -102,7 +116,7 @@ Preencha o formulário com CNPJ, CNAE e valor da nota fiscal.
 
 Envie o formulário e veja os resultados dos cálculos de retenção de impostos exibidos na página.
 
-# Contribuição
+## Contribuição
 
 Faça um fork do repositório.
 
@@ -123,6 +137,6 @@ Faça um push para a branch:
 
 Abra um Pull Request.
 
-# Licença:
+## Licença:
 
 Este projeto está licenciado sob a Licença MIT. Veja o arquivo LICENSE para mais detalhes.
