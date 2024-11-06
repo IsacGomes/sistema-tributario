@@ -1,15 +1,14 @@
 import pandas as pd
 
-# GAMBIARRA 1
 df = pd.read_excel('../files/Retencao_IR_ISS.xlsx', engine='openpyxl', skiprows=1)
 
-# GAMBIARRA 2
-colunas = df[['A', 'B', 'C', 'D', 'E']]
+print(df.head())
+print(df.columns)
 
-# GAMBIARRA 3
-colunas.columns = ['CNAE', 'Serviço', 'Alíquota', 'Natureza', 'Item LC 116']
+df.columns = ['CNAE', 'Serviço', 'Alíquota', 'Natureza', 'Item LC 116']
 
-# SALVANDO UMA DISGRAÇA
+colunas = df[['CNAE', 'Serviço', 'Alíquota', 'Natureza', 'Item LC 116']]
+
 colunas.to_json('../files/dados.json', orient='records')
 
-#NÃO SEI COMO, MAS DEU CERTO
+print("Dados mapeados salvos em dados.json")
