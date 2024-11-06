@@ -49,3 +49,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
+
+//Eu SEI, UMA GAMBIARRA ATRÁS DA OUTRA
